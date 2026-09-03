@@ -1,0 +1,6 @@
+@BookMarked_HostAddress = http://localhost:5172/swagger
+
+GET {{BookMarked_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
