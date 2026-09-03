@@ -1,4 +1,11 @@
+using BookMarked.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Use console logging so the app does not require Windows Event Log permissions.
 builder.Logging.ClearProviders();
