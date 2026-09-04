@@ -88,11 +88,20 @@ builder.Services
     });
 
 builder.Services.AddAuthorization();
+
+builder.Services.AddScoped<DataInitializer>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    using var scope = app.Services.CreateScope();
+
+    var initializer = scope.ServiceProvider
+        .GetRequiredService<DataInitializer>();
+
+    await initializer.InitializeAsync();
+
     app.UseSwagger();
     app.UseSwaggerUI();
     app.MapOpenApi();

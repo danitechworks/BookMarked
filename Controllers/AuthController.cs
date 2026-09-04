@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BookMarked.Services;
+using Microsoft.Data.SqlClient;
 
 namespace BookMarked.Controllers;
 
@@ -61,7 +62,21 @@ public class AuthController : ControllerBase
             request.Password);
 
         _context.Users.Add(user);
-        await _context.SaveChangesAsync();
+
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateException ex)
+            when (ex.InnerException is SqlException sqlException
+                  && (sqlException.Number == 2601
+                      || sqlException.Number == 2627))
+        {
+            return Conflict(new
+            {
+                message = "That username is already registered."
+            });
+        }
 
         return Ok(new
         {
