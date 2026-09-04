@@ -63,4 +63,48 @@ public class AuthController : ControllerBase
             message = "Account created successfully."
         });
     }
+
+    [HttpPost("login")]
+    public async Task<IActionResult> Login(LoginRequest request)
+    {
+        var username = request.Username.Trim();
+
+        var user = await _context.Users
+            .FirstOrDefaultAsync(user => user.Username == username);
+
+        if (user is null)
+        {
+            return Unauthorized(new
+            {
+                message = "Invalid username or password."
+            });
+        }
+
+        var result = _passwordHasher.VerifyHashedPassword(
+            user,
+            user.PasswordHash,
+            request.Password);
+
+        if (result == PasswordVerificationResult.Failed)
+        {
+            return Unauthorized(new
+            {
+                message = "Invalid username or password."
+            });
+        }
+
+        if (result == PasswordVerificationResult.SuccessRehashNeeded)
+        {
+            user.PasswordHash = _passwordHasher.HashPassword(
+                user,
+                request.Password);
+
+            await _context.SaveChangesAsync();
+        }
+
+        return Ok(new
+        {
+            message = "Login successful."
+        });
+    }
 }
