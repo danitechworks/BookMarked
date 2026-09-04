@@ -2,6 +2,7 @@ using BookMarked.Data;
 using Microsoft.EntityFrameworkCore;
 using BookMarked.Models;
 using Microsoft.AspNetCore.Identity;
+using BookMarked.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,7 @@ builder.Services.AddOpenApi();
 
 
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+builder.Services.AddScoped<TokenService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

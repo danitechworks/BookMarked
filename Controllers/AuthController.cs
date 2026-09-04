@@ -4,6 +4,7 @@ using BookMarked.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using BookMarked.Services;
 
 namespace BookMarked.Controllers;
 
@@ -14,12 +15,16 @@ public class AuthController : ControllerBase
     private readonly AppDbContext _context;
     private readonly IPasswordHasher<User> _passwordHasher;
 
+    private readonly TokenService _tokenService;
+
     public AuthController(
         AppDbContext context,
-        IPasswordHasher<User> passwordHasher)
+        IPasswordHasher<User> passwordHasher,
+        TokenService tokenService)
     {
         _context = context;
         _passwordHasher = passwordHasher;
+        _tokenService = tokenService;
     }
 
     [HttpPost("register")]
@@ -102,9 +107,12 @@ public class AuthController : ControllerBase
             await _context.SaveChangesAsync();
         }
 
+        var token = _tokenService.CreateToken(user);
+
         return Ok(new
         {
-            message = "Login successful."
+            token,
+            username = user.Username
         });
     }
 }
