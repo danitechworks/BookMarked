@@ -4,6 +4,7 @@ using BookMarked.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace BookMarked.Controllers
 {
@@ -14,6 +15,8 @@ namespace BookMarked.Controllers
     {
         private readonly AppDbContext _context;
 
+        private int CurrentUserId => int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+
         public QuotesController(AppDbContext context)
         {
             _context = context;
@@ -22,7 +25,9 @@ namespace BookMarked.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Quote>>> GetAll()
         {
-            var quotes = await _context.Quotes.ToListAsync();
+            var quotes = await _context.Quotes
+                                        .Where(quote => quote.UserId == CurrentUserId)
+                                        .ToListAsync();
 
             return Ok(quotes);
         }
@@ -30,7 +35,7 @@ namespace BookMarked.Controllers
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Quote>> GetById(int id)
         {
-            var quote = await _context.Quotes.FindAsync(id);
+            var quote = await _context.Quotes.FirstOrDefaultAsync(quote => quote.Id == id && quote.UserId == CurrentUserId);
 
             if (quote is null)
             {
@@ -46,7 +51,8 @@ namespace BookMarked.Controllers
             var quote = new Quote
             {
                 Text = request.Text,
-                Author = request.Author
+                Author = request.Author,
+                UserId = CurrentUserId
             };
 
             _context.Quotes.Add(quote);
@@ -61,7 +67,7 @@ namespace BookMarked.Controllers
         [HttpPut("{id:int}")]
         public async Task<IActionResult> Update(int id, QuoteRequest request)
         {
-            var quote = await _context.Quotes.FindAsync(id);
+            var quote = await _context.Quotes.FirstOrDefaultAsync(quote => quote.Id == id && quote.UserId == CurrentUserId);
 
             if (quote is null)
             {
@@ -79,7 +85,7 @@ namespace BookMarked.Controllers
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var quote = await _context.Quotes.FindAsync(id);
+            var quote = await _context.Quotes.FirstOrDefaultAsync(quote => quote.Id == id && quote.UserId == CurrentUserId);
 
             if (quote is null)
             {
