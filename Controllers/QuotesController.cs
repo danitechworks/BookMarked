@@ -3,9 +3,11 @@ using BookMarked.DTOs;
 using BookMarked.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BookMarked.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class QuotesController : ControllerBase
