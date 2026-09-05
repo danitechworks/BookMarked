@@ -1,1 +1,99 @@
-<p>register works!</p>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-5">
+      <div class="card border-0 shadow">
+        <div class="card-body p-4">
+          <h1 class="h3 text-center mb-4">
+            <i class="fa-solid fa-user-plus me-2"></i>
+            Create account
+          </h1>
+
+          @if (successMessage) {
+          <div class="alert alert-success">
+            {{ successMessage }}
+          </div>
+          }
+
+          @if (errorMessage) {
+          <div class="alert alert-danger">
+            {{ errorMessage }}
+          </div>
+          }
+
+          <form [formGroup]="registerForm"
+                (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="username" class="form-label">
+                Username
+              </label>
+
+              <input id="username"
+                     type="text"
+                     class="form-control"
+                     formControlName="username"
+                     autocomplete="username">
+
+              @if (
+              registerForm.controls.username.touched &&
+              registerForm.controls.username.invalid
+              ) {
+              <div class="text-danger small mt-1">
+                Username must contain at least 3 characters.
+              </div>
+              }
+            </div>
+
+            <div class="mb-3">
+              <label for="password" class="form-label">
+                Password
+              </label>
+
+              <input id="password"
+                     type="password"
+                     class="form-control"
+                     formControlName="password"
+                     autocomplete="new-password">
+
+              @if (
+              registerForm.controls.password.touched &&
+              registerForm.controls.password.invalid
+              ) {
+              <div class="text-danger small mt-1">
+                Password must contain at least 6 characters.
+              </div>
+              }
+            </div>
+
+            <div class="mb-4">
+              <label for="confirmPassword" class="form-label">
+                Confirm password
+              </label>
+
+              <input id="confirmPassword"
+                     type="password"
+                     class="form-control"
+                     formControlName="confirmPassword"
+                     autocomplete="new-password">
+            </div>
+
+            <button type="submit"
+                    class="btn btn-primary w-100"
+                    [disabled]="isSubmitting">
+              @if (isSubmitting) {
+              Creating account...
+              } @else {
+              <i class="fa-solid fa-user-plus me-2"></i>
+              Create account
+              }
+            </button>
+          </form>
+
+          <p class="text-center mt-4 mb-0">
+            Already registered?
+            <a routerLink="/login">Log in</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
