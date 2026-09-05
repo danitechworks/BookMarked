@@ -1,1 +1,42 @@
-<p>books works!</p>
+<div class="container py-5">
+  <h1 class="mb-4">
+    <i class="fa-solid fa-book me-2"></i>
+    Books
+  </h1>
+
+  @if (isLoading) {
+  <div class="alert alert-info">
+    Loading books...
+  </div>
+  }
+
+  @if (errorMessage) {
+  <div class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+  }
+
+  <div class="row g-4">
+    @for (book of books; track book.id) {
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h2 class="h5">{{ book.title }}</h2>
+          <p class="mb-2">{{ book.author }}</p>
+          <small class="text-body-secondary">
+            Published: {{ book.publicationDate }}
+          </small>
+        </div>
+      </div>
+    </div>
+    } @empty {
+    @if (!isLoading && !errorMessage) {
+    <div class="col-12">
+      <div class="alert alert-secondary">
+        No books found.
+      </div>
+    </div>
+    }
+    }
+  </div>
+</div>
