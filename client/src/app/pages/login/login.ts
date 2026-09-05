@@ -4,6 +4,7 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms';
+import { Auth } from '../../services/auth';
 
 @Component({
   selector: 'app-login',
@@ -13,11 +14,17 @@ import {
 })
 export class Login {
   private readonly formBuilder = inject(FormBuilder);
+  private readonly auth = inject(Auth);
 
-  protected readonly loginForm = this.formBuilder.nonNullable.group({
-    username: ['', Validators.required],
-    password: ['', Validators.required]
-  });
+  protected readonly loginForm =
+    this.formBuilder.nonNullable.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+
+  protected errorMessage = '';
+  protected successMessage = '';
+  protected isSubmitting = false;
 
   protected onSubmit(): void {
     if (this.loginForm.invalid) {
@@ -25,6 +32,32 @@ export class Login {
       return;
     }
 
-    console.log(this.loginForm.getRawValue());
+    this.errorMessage = '';
+    this.successMessage = '';
+    this.isSubmitting = true;
+
+    const request = this.loginForm.getRawValue();
+
+    this.auth.login(request).subscribe({
+      next: response => {
+        this.isSubmitting = false;
+        this.successMessage =
+          `Welcome, ${response.username}!`;
+      },
+      error: error => {
+        this.isSubmitting = false;
+
+        if (error.status === 401) {
+          this.errorMessage =
+            'Invalid username or password.';
+        } else if (error.status === 0) {
+          this.errorMessage =
+            'Could not reach the API.';
+        } else {
+          this.errorMessage =
+            'Something went wrong. Please try again.';
+        }
+      }
+    });
   }
 }

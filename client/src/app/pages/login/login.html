@@ -7,7 +7,17 @@
             <i class="fa-solid fa-book-open me-2"></i>
             BookMarked
           </h1>
+          @if (successMessage) {
+          <div class="alert alert-success">
+            {{ successMessage }}
+          </div>
+          }
 
+          @if (errorMessage) {
+          <div class="alert alert-danger">
+            {{ errorMessage }}
+          </div>
+          }
           <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <div class="mb-3">
               <label for="username" class="form-label">
@@ -52,9 +62,15 @@
             </div>
 
             <button type="submit"
-                    class="btn btn-primary w-100">
+                    class="btn btn-primary w-100"
+                    [disabled]="isSubmitting">
               <i class="fa-solid fa-right-to-bracket me-2"></i>
+
+              @if (isSubmitting) {
+              Logging in...
+              } @else {
               Log in
+              }
             </button>
           </form>
         </div>
