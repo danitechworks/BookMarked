@@ -37,8 +37,6 @@ export class QuoteForm implements OnInit {
     return this.quoteId !== null;
   }
 
-  protected deletingQuoteId: number | null = null;
-
   protected quoteForm = this.formBuilder.nonNullable.group({
     text: ['', Validators.required],
     author: ['', Validators.required]
@@ -77,6 +75,8 @@ export class QuoteForm implements OnInit {
       }
     });
   }
+
+
   protected onSubmit(): void {
     if (this.quoteForm.invalid) {
       this.quoteForm.markAllAsTouched();
