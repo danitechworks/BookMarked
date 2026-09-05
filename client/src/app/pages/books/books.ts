@@ -15,6 +15,7 @@ export class Books implements OnInit {
   protected books: Book[] = [];
   protected isLoading = true;
   protected errorMessage = '';
+  protected deletingBookId: number | null = null;
 
   ngOnInit(): void {
     this.booksService.getAll().subscribe({
@@ -29,6 +30,36 @@ export class Books implements OnInit {
           this.errorMessage = 'Your session is not authorized.';
         } else {
           this.errorMessage = 'Could not load books.';
+        }
+      }
+    });
+  }
+  protected deleteBook(book: Book): void {
+    const confirmed = window.confirm(`Delete "${book.title}"?`);
+
+    if (!confirmed) {
+      return;
+    }
+
+    this.deletingBookId = book.id;
+    this.errorMessage = '';
+
+    this.booksService.delete(book.id).subscribe({
+      next: () => {
+        this.books = this.books.filter(
+          existingBook => existingBook.id !== book.id
+        );
+
+        this.deletingBookId = null;
+      },
+      error: error => {
+        this.deletingBookId = null;
+
+        if (error.status === 401) {
+          this.errorMessage =
+            'Your session has expired. Please log in again.';
+        } else {
+          this.errorMessage = 'Could not delete the book.';
         }
       }
     });
