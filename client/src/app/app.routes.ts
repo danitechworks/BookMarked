@@ -42,6 +42,11 @@ export const routes: Routes = [
     canActivate: [authGuard]
   },
   {
+    path: 'quotes/edit/:id',
+    component: QuoteForm,
+    canActivate: [authGuard]
+  },
+  {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'

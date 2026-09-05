@@ -3,7 +3,15 @@
     <div class="col-12 col-md-8 col-lg-6">
       <div class="card shadow-sm">
         <div class="card-body p-4">
-          <h1 class="h3 mb-4">Add New Quote</h1>
+          <h1 class="h3 mb-4">
+            <i class="fa-solid fa-quote-left me-2"></i>
+
+            @if (isEditMode) {
+            Edit quote
+            } @else {
+            Add new quote
+            }
+          </h1>
 
           @if (errorMessage) {
           <div class="alert alert-danger">
