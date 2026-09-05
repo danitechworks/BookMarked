@@ -4,6 +4,10 @@
     <p class="text-body-secondary">
       Your personal collection of favorite quotes.
     </p>
+    <a routerLink="/quotes/new" class="btn btn-primary">
+      <i class="fa-solid fa-plus me-1"></i>
+      Add New Quote
+    </a>
   </div>
 
   @if (isLoading) {
@@ -28,6 +32,7 @@
         <div class="card-body">
           <blockquote class="blockquote mb-0">
             <p>“{{ quote.text }}”</p>
+            
             <footer class="blockquote-footer mt-2">
               {{ quote.author }}
             </footer>

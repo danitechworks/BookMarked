@@ -5,6 +5,7 @@ import { Books } from './pages/books/books';
 import { authGuard } from './guards/auth-guard';
 import { BookForm } from './pages/book-form/book-form';
 import { Quotes } from './pages/quotes/quotes';
+import { QuoteForm } from './pages/quote-form/quote-form';
 
 export const routes: Routes = [
   {
@@ -33,6 +34,11 @@ export const routes: Routes = [
   {
     path: 'quotes',
     component: Quotes,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'quotes/new',
+    component: QuoteForm,
     canActivate: [authGuard]
   },
   {

@@ -1,10 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Quote } from '../../models/quote';
 import { QuotesService } from '../../services/quotes';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-quotes',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './quotes.html',
   styleUrl: './quotes.scss'
 })
