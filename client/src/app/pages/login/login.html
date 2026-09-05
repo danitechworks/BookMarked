@@ -1,0 +1,64 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-5">
+      <div class="card border-0 shadow">
+        <div class="card-body p-4">
+          <h1 class="h3 text-center mb-4">
+            <i class="fa-solid fa-book-open me-2"></i>
+            BookMarked
+          </h1>
+
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="username" class="form-label">
+                Username
+              </label>
+
+              <input id="username"
+                     type="text"
+                     class="form-control"
+                     formControlName="username"
+                     autocomplete="username">
+
+              @if (
+              loginForm.controls.username.touched &&
+              loginForm.controls.username.invalid
+              ) {
+              <div class="text-danger small mt-1">
+                Username is required.
+              </div>
+              }
+            </div>
+
+            <div class="mb-4">
+              <label for="password" class="form-label">
+                Password
+              </label>
+
+              <input id="password"
+                     type="password"
+                     class="form-control"
+                     formControlName="password"
+                     autocomplete="current-password">
+
+              @if (
+              loginForm.controls.password.touched &&
+              loginForm.controls.password.invalid
+              ) {
+              <div class="text-danger small mt-1">
+                Password is required.
+              </div>
+              }
+            </div>
+
+            <button type="submit"
+                    class="btn btn-primary w-100">
+              <i class="fa-solid fa-right-to-bracket me-2"></i>
+              Log in
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
