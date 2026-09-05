@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { AuthResponse } from '../models/auth-response';
 import { LoginRequest } from '../models/login-request';
 
@@ -14,9 +14,40 @@ export class Auth {
     'https://localhost:7196/api/Auth';
 
   login(request: LoginRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(
-      `${this.apiUrl}/login`,
-      request
-    );
+    return this.http
+      .post<AuthResponse>(
+        `${this.apiUrl}/login`,
+        request
+      )
+      .pipe(
+        tap(response => {
+          localStorage.setItem(
+            'bookmark_token',
+            response.token
+          );
+
+          localStorage.setItem(
+            'bookmark_username',
+            response.username
+          );
+        })
+      );
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('bookmark_token');
+  }
+
+  getUsername(): string | null {
+    return localStorage.getItem('bookmark_username');
+  }
+
+  isLoggedIn(): boolean {
+    return this.getToken() !== null;
+  }
+
+  logout(): void {
+    localStorage.removeItem('bookmark_token');
+    localStorage.removeItem('bookmark_username');
   }
 }
