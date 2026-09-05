@@ -1,0 +1,118 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-9 col-lg-7">
+      <div class="card border-0 shadow">
+        <div class="card-body p-4">
+          <h1 class="h3 mb-4">
+            <i class="fa-solid fa-book me-2"></i>
+
+            @if (isEditMode) {
+            Edit book
+            } @else {
+            Add new book
+            }
+          </h1>
+
+          @if (isLoading) {
+          <div class="alert alert-info">
+            Loading book...
+          </div>
+          }
+
+          @if (errorMessage) {
+          <div class="alert alert-danger">
+            {{ errorMessage }}
+          </div>
+          }
+
+          @if (!isLoading) {
+          <form [formGroup]="bookForm"
+                (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="title" class="form-label">
+                Title
+              </label>
+
+              <input id="title"
+                     type="text"
+                     class="form-control"
+                     formControlName="title">
+
+              @if (
+              bookForm.controls.title.touched &&
+              bookForm.controls.title.invalid
+              ) {
+              <div class="text-danger small mt-1">
+                Title is required.
+              </div>
+            }
+        </div>
+
+        <div class="mb-3">
+          <label for="author" class="form-label">
+            Author
+          </label>
+
+          <input id="author"
+                 type="text"
+                 class="form-control"
+                 formControlName="author">
+
+          @if (
+          bookForm.controls.author.touched &&
+          bookForm.controls.author.invalid
+          ) {
+          <div class="text-danger small mt-1">
+            Author is required.
+          </div>
+          }
+        </div>
+
+        <div class="mb-4">
+          <label for="publicationDate"
+                 class="form-label">
+            Publication date
+          </label>
+
+          <input id="publicationDate"
+                 type="date"
+                 class="form-control"
+                 formControlName="publicationDate">
+
+          @if (
+          bookForm.controls.publicationDate.touched &&
+          bookForm.controls.publicationDate.invalid
+          ) {
+          <div class="text-danger small mt-1">
+            Publication date is required.
+          </div>
+          }
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="submit"
+                  class="btn btn-primary"
+                  [disabled]="isSubmitting">
+            <i class="fa-solid fa-floppy-disk me-2"></i>
+
+            @if (isSubmitting) {
+            Saving...
+            } @else {
+            Save book
+            }
+          </button>
+
+          <button type="button"
+                  class="btn btn-outline-secondary"
+                  [disabled]="isSubmitting"
+                  (click)="cancel()">
+            Cancel
+          </button>
+        </div>
+        </form>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+</div>
