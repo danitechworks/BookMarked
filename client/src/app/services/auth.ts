@@ -3,6 +3,8 @@ import { inject, Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { AuthResponse } from '../models/auth-response';
 import { LoginRequest } from '../models/login-request';
+import { RegisterRequest } from '../models/register-request';
+import { RegisterResponse } from '../models/register-response';
 
 @Injectable({
   providedIn: 'root'
@@ -49,5 +51,14 @@ export class Auth {
   logout(): void {
     localStorage.removeItem('bookmark_token');
     localStorage.removeItem('bookmark_username');
+  }
+
+  register(
+    request: RegisterRequest
+  ): Observable<RegisterResponse> {
+    return this.http.post<RegisterResponse>(
+      `${this.apiUrl}/register`,
+      request
+    );
   }
 }
