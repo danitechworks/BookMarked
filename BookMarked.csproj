@@ -31,4 +31,27 @@
     <Folder Include="Properties\" />
   </ItemGroup>
 
+<Target Name="PublishAngular" AfterTargets="ComputeFilesToPublish">
+  <Exec
+    WorkingDirectory="$(MSBuildProjectDirectory)\client"
+    Command="npm ci" />
+
+  <Exec
+    WorkingDirectory="$(MSBuildProjectDirectory)\client"
+    Command="npm run build" />
+
+  <ItemGroup>
+    <AngularFiles Include="$(MSBuildProjectDirectory)\client\dist\client\browser\**\*" />
+
+    <ResolvedFileToPublish
+      Include="@(AngularFiles->'%(FullPath)')"
+      Exclude="@(ResolvedFileToPublish)">
+
+      <RelativePath>wwwroot\%(RecursiveDir)%(Filename)%(Extension)</RelativePath>
+
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </ResolvedFileToPublish>
+  </ItemGroup>
+</Target>
+
 </Project>
