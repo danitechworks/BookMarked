@@ -5,6 +5,7 @@ import { AuthResponse } from '../models/auth-response';
 import { LoginRequest } from '../models/login-request';
 import { RegisterRequest } from '../models/register-request';
 import { RegisterResponse } from '../models/register-response';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,7 @@ import { RegisterResponse } from '../models/register-response';
 export class Auth {
   private readonly http = inject(HttpClient);
 
-  private readonly apiUrl =
-    'https://localhost:7196/api/Auth';
+  private readonly apiUrl = `${environment.apiUrl}/Auth`;
 
   login(request: LoginRequest): Observable<AuthResponse> {
     return this.http

@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Book } from '../models/book';
 import { BookRequest } from '../models/book-request';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,7 @@ import { BookRequest } from '../models/book-request';
 export class BooksService {
   private readonly http = inject(HttpClient);
 
-  private readonly apiUrl =
-    'https://localhost:7196/api/Books';
+  private readonly apiUrl = `${environment.apiUrl}/Books`;
 
   getAll(): Observable<Book[]> {
     return this.http.get<Book[]>(this.apiUrl);

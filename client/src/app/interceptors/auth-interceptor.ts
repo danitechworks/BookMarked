@@ -1,15 +1,14 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Auth } from '../services/auth';
+import { environment } from '../../environments/environment';
 
 export const authInterceptor: HttpInterceptorFn =
   (request, next) => {
     const auth = inject(Auth);
     const token = auth.getToken();
 
-    const isApiRequest = request.url.startsWith(
-      'https://localhost:7196/api/'
-    );
+    const isApiRequest = request.url.startsWith(`${environment.apiUrl}/`);
 
     if (!token || !isApiRequest) {
       return next(request);
