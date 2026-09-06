@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top shadow-sm">
+  <div class="container">
+    <a class="navbar-brand"
+       routerLink="/books"
+       (click)="closeMenu()">
+      <i class="fa-solid fa-book-bookmark me-2"></i>
+      BookMarked
+    </a>
+
+    <button type="button"
+            class="navbar-toggler"
+            aria-label="Toggle navigation"
+            aria-controls="mainNavigation"
+            [attr.aria-expanded]="menuOpen"
+            (click)="toggleMenu()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="mainNavigation"
+         class="collapse navbar-collapse"
+         [class.show]="menuOpen">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item">
+          <a class="nav-link"
+             routerLink="/books"
+             routerLinkActive="active"
+             (click)="closeMenu()">
+            <i class="fa-solid fa-book me-1"></i>
+            Books
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link"
+             routerLink="/quotes"
+             routerLinkActive="active"
+             (click)="closeMenu()">
+            <i class="fa-solid fa-quote-left me-1"></i>
+            My Quotes
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
