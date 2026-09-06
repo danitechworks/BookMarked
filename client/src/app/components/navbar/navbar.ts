@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
+  Router,
   RouterLink,
   RouterLinkActive
 } from '@angular/router';
+import { Auth } from '../../services/auth';
 
 @Component({
   selector: 'app-navbar',
@@ -19,5 +21,18 @@ export class Navbar {
 
   protected closeMenu(): void {
     this.menuOpen = false;
+  }
+
+  private readonly auth = inject(Auth);
+  private readonly router = inject(Router);
+
+  protected get isLoggedIn(): boolean {
+    return this.auth.isLoggedIn();
+  }
+
+  protected logout(): void {
+    this.auth.logout();
+    this.closeMenu();
+    this.router.navigate(['/login']);
   }
 }
