@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import {
   FormBuilder,
   ReactiveFormsModule, 
@@ -16,6 +16,7 @@ import { Auth } from '../../services/auth';
 export class Login {
   private readonly formBuilder = inject(FormBuilder);
   private readonly auth = inject(Auth);
+  private readonly router = inject(Router);
 
   protected readonly loginForm =
     this.formBuilder.nonNullable.group({
@@ -40,10 +41,9 @@ export class Login {
     const request = this.loginForm.getRawValue();
 
     this.auth.login(request).subscribe({
-      next: response => {
+      next: () => {
         this.isSubmitting = false;
-        this.successMessage =
-          `Welcome, ${response.username}!`;
+        this.router.navigate(['/books']);
       },
       error: error => {
         this.isSubmitting = false;
@@ -59,6 +59,8 @@ export class Login {
             'Something went wrong. Please try again.';
         }
       }
+
     });
   }
+
 }

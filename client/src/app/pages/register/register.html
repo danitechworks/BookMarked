@@ -86,6 +86,13 @@
               Create account
               }
             </button>
+            @if (isSubmitting) {
+            <div class="alert alert-info mt-3 mb-0" role="status">
+              <span class="spinner-border spinner-border-sm me-2"
+                    aria-hidden="true"></span>
+              Please wait. Free cloud services may take up to 30 seconds to wake up.
+            </div>
+            }
           </form>
 
           <p class="text-center mt-4 mb-0">
