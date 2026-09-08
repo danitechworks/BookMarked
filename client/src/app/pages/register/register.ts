@@ -4,8 +4,8 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms';
-import { Auth } from '../../services/auth';
 import { RouterLink } from '@angular/router';
+import { Auth } from '../../services/auth';
 
 @Component({
   selector: 'app-register',
@@ -23,7 +23,8 @@ export class Register {
         '',
         [
           Validators.required,
-          Validators.minLength(3)
+          Validators.minLength(3),
+          Validators.maxLength(50)
         ]
       ],
       password: [
@@ -33,7 +34,10 @@ export class Register {
           Validators.minLength(6)
         ]
       ],
-      confirmPassword: ['', Validators.required]
+      confirmPassword: [
+        '',
+        Validators.required
+      ]
     });
 
   protected errorMessage = '';
@@ -41,6 +45,9 @@ export class Register {
   protected isSubmitting = false;
 
   protected onSubmit(): void {
+    this.errorMessage = '';
+    this.successMessage = '';
+
     if (this.registerForm.invalid) {
       this.registerForm.markAllAsTouched();
       return;
@@ -53,8 +60,6 @@ export class Register {
       return;
     }
 
-    this.errorMessage = '';
-    this.successMessage = '';
     this.isSubmitting = true;
 
     this.auth.register({
@@ -69,15 +74,25 @@ export class Register {
       error: error => {
         this.isSubmitting = false;
 
-        if (error.status === 409) {
-          this.errorMessage =
-            'That username is already registered.';
+        const apiMessage = error.error?.message;
+        const validationErrors = error.error?.errors;
+
+        if (typeof apiMessage === 'string') {
+          this.errorMessage = apiMessage;
+        } else if (validationErrors) {
+          this.errorMessage = Object
+            .values(validationErrors)
+            .flat()
+            .join(' ');
         } else if (error.status === 0) {
           this.errorMessage =
-            'Could not reach the API.';
+            'Could not reach the API. Please check your connection.';
+        } else if (error.status >= 500) {
+          this.errorMessage =
+            'The server is temporarily unavailable. Please wait and try again.';
         } else {
           this.errorMessage =
-            'Registration failed. Please try again.';
+            'Registration failed. Please check your information.';
         }
       }
     });

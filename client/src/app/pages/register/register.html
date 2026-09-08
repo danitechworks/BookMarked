@@ -24,7 +24,7 @@
                 (ngSubmit)="onSubmit()">
             <div class="mb-3">
               <label for="username" class="form-label">
-                Username
+                Username or email
               </label>
 
               <input id="username"
@@ -32,13 +32,26 @@
                      class="form-control"
                      formControlName="username"
                      autocomplete="username">
-
               @if (
               registerForm.controls.username.touched &&
-              registerForm.controls.username.invalid
+              registerForm.controls.username.hasError('required')
               ) {
               <div class="text-danger small mt-1">
-                Username must contain at least 3 characters.
+                Username or email is required.
+              </div>
+              } @else if (
+              registerForm.controls.username.touched &&
+              registerForm.controls.username.hasError('minlength')
+              ) {
+              <div class="text-danger small mt-1">
+                Username or email must contain at least 3 - 50 characters.
+              </div>
+              } @else if (
+              registerForm.controls.username.touched &&
+              registerForm.controls.username.hasError('maxlength')
+              ) {
+              <div class="text-danger small mt-1">
+                Username or email must contain at least 3 - 50 characters.
               </div>
               }
             </div>
