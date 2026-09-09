@@ -2,10 +2,11 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Quote } from '../../models/quote';
 import { QuotesService } from '../../services/quotes';
 import { RouterLink } from '@angular/router';
+import { ConfirmDelete } from '../../components/confirm-delete/confirm-delete';
 
 @Component({
   selector: 'app-quotes',
-  imports: [RouterLink],
+  imports: [RouterLink, ConfirmDelete],
   templateUrl: './quotes.html',
   styleUrl: './quotes.scss'
 })
@@ -17,6 +18,7 @@ export class Quotes implements OnInit {
   protected errorMessage = '';
 
   protected deletingQuoteId: number | null = null;
+  protected quoteToDelete: Quote | null = null;
 
   ngOnInit(): void {
     this.quotesService.getAll().subscribe({
@@ -36,15 +38,22 @@ export class Quotes implements OnInit {
       }
     });
   }
-  protected deleteQuote(quote: Quote): void {
-    const confirmed = window.confirm(
-      `Delete this quote by ${quote.author}?`
-    );
+  protected requestDeleteQuote(quote: Quote): void {
+    this.quoteToDelete = quote;
+  }
 
-    if (!confirmed) {
+  protected cancelDeleteQuote(): void {
+    this.quoteToDelete = null;
+  }
+
+  protected confirmDeleteQuote(): void {
+    const quote = this.quoteToDelete;
+
+    if (quote === null) {
       return;
     }
 
+    this.quoteToDelete = null;
     this.deletingQuoteId = quote.id;
     this.errorMessage = '';
 
