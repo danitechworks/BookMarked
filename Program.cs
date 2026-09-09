@@ -7,6 +7,8 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.RateLimiting;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -104,6 +106,35 @@ builder.Services.AddCors(options =>
     });
 });
 
+// Apply per-IP limits, with stricter throttling for authentication to reduce brute-force attempts and unnecessary database traffic.
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode =
+        StatusCodes.Status429TooManyRequests;
+
+    options.AddPolicy("api", httpContext =>
+    {
+        var clientIp =
+            httpContext.Connection.RemoteIpAddress?.ToString()
+            ?? "unknown";
+
+        var isAuthenticationRequest =
+            httpContext.Request.Path.StartsWithSegments("/api/Auth");
+
+        var category = isAuthenticationRequest ? "auth" : "api";
+
+        return RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: $"{clientIp}:{category}",
+            factory: _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = isAuthenticationRequest ? 10 : 60,
+                Window = TimeSpan.FromMinutes(1),
+                QueueLimit = 0,
+                AutoReplenishment = true
+            });
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -125,13 +156,15 @@ app.UseHttpsRedirection();
 
 app.UseCors("AngularClient");
 
+app.UseRateLimiter();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
-app.MapControllers();
+app.MapControllers().RequireRateLimiting("api");
 app.MapFallbackToFile("index.html");
 
 app.Run();
