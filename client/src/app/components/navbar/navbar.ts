@@ -5,6 +5,7 @@ import {
   RouterLinkActive
 } from '@angular/router';
 import { Auth } from '../../services/auth';
+import { ThemeService } from '../../services/theme';
 
 @Component({
   selector: 'app-navbar',
@@ -34,5 +35,14 @@ export class Navbar {
     this.auth.logout();
     this.closeMenu();
     this.router.navigate(['/login']);
+  }
+  private readonly themeService = inject(ThemeService);
+
+  protected get isDarkMode(): boolean {
+    return this.themeService.isDark;
+  }
+
+  protected toggleTheme(): void {
+    this.themeService.toggle();
   }
 }

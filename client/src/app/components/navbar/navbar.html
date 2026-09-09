@@ -42,6 +42,16 @@
         </li>
       </ul>
       <button type="button"
+              class="btn btn-outline-light me-2"
+              (click)="toggleTheme()"
+              [attr.aria-label]="isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'"
+              [title]="isDarkMode ? 'Light mode' : 'Dark mode'">
+        <i class="fa-solid"
+           [class.fa-sun]="isDarkMode"
+           [class.fa-moon]="!isDarkMode">
+        </i>
+      </button>
+      <button type="button"
               class="btn btn-outline-light"
               (click)="logout()">
         <i class="fa-solid fa-right-from-bracket me-1"></i>
