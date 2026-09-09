@@ -2,10 +2,11 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Book } from '../../models/book';
 import { BooksService } from '../../services/books';
 import { RouterLink } from '@angular/router';
+import { ConfirmDelete } from '../../components/confirm-delete/confirm-delete';
 
 @Component({
   selector: 'app-books',
-  imports: [RouterLink],
+  imports: [RouterLink, ConfirmDelete],
   templateUrl: './books.html',
   styleUrl: './books.scss'
 })
@@ -16,6 +17,7 @@ export class Books implements OnInit {
   protected isLoading = true;
   protected errorMessage = '';
   protected deletingBookId: number | null = null;
+  protected bookToDelete: Book | null = null;
 
   ngOnInit(): void {
     this.booksService.getAll().subscribe({
@@ -34,13 +36,22 @@ export class Books implements OnInit {
       }
     });
   }
-  protected deleteBook(book: Book): void {
-    const confirmed = window.confirm(`Delete "${book.title}"?`);
+  protected requestDeleteBook(book: Book): void {
+    this.bookToDelete = book;
+  }
 
-    if (!confirmed) {
+  protected cancelDeleteBook(): void {
+    this.bookToDelete = null;
+  }
+
+  protected confirmDeleteBook(): void {
+    const book = this.bookToDelete;
+
+    if (book === null) {
       return;
     }
 
+    this.bookToDelete = null;
     this.deletingBookId = book.id;
     this.errorMessage = '';
 

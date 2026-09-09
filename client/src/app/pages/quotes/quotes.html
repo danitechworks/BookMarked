@@ -45,7 +45,7 @@
             </a>
             <button type="button"
                     class="btn btn-outline-danger ms-2"
-                    (click)="deleteQuote(quote)"
+                    (click)="requestDeleteQuote(quote)"
                     [disabled]="deletingQuoteId === quote.id">
               <i class="fa-solid fa-trash me-1"></i>
 
@@ -63,3 +63,8 @@
   </div>
   }
 </div>
+@if (quoteToDelete) {
+<app-confirm-delete [itemDescription]="quoteToDelete.text"
+                    (confirmed)="confirmDeleteQuote()"
+                    (cancelled)="cancelDeleteQuote()"></app-confirm-delete>
+}

@@ -47,13 +47,13 @@
           </a>
           <button type="button"
                   class="btn btn-outline-danger"
-                  (click)="deleteBook(book)"
+                  (click)="requestDeleteBook(book)"
                   [disabled]="deletingBookId === book.id">
             <i class="fa-solid fa-trash me-1"></i>
             {{ deletingBookId === book.id ? 'Deleting...' : 'Delete' }}
           </button>
         </div>
-        
+
       </div>
     </div>
     } @empty {
@@ -67,3 +67,8 @@
     }
   </div>
 </div>
+@if (bookToDelete) {
+<app-confirm-delete [itemDescription]="bookToDelete.title"
+                    (confirmed)="confirmDeleteBook()"
+                    (cancelled)="cancelDeleteBook()"></app-confirm-delete>
+}

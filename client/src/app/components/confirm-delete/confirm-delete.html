@@ -1,0 +1,46 @@
+<div class="modal fade show d-block"
+     tabindex="-1"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="deleteModalTitle">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow">
+      <div class="modal-header">
+        <h2 id="deleteModalTitle" class="modal-title fs-5">
+          <i class="fa-solid fa-triangle-exclamation text-danger me-2"></i>
+          Confirm deletion
+        </h2>
+
+        <button type="button"
+                class="btn-close"
+                aria-label="Close"
+                (click)="cancelDelete()"></button>
+      </div>
+
+      <div class="modal-body">
+        <p class="mb-0">
+          Are you sure you want to delete
+          <strong>{{ itemDescription }}</strong>?
+          This action cannot be undone.
+        </p>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button"
+                class="btn btn-outline-secondary"
+                (click)="cancelDelete()">
+          Cancel
+        </button>
+
+        <button type="button"
+                class="btn btn-danger"
+                (click)="confirmDelete()">
+          <i class="fa-solid fa-trash me-1"></i>
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop fade show"></div>
