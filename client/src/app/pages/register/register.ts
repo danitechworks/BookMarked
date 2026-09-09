@@ -74,6 +74,12 @@ export class Register {
       error: error => {
         this.isSubmitting = false;
 
+        if (error.status === 429) {
+          this.errorMessage =
+            'Too many attempts. Please wait one minute and try again.';
+          return;
+        }
+
         const apiMessage = error.error?.message;
         const validationErrors = error.error?.errors;
 
