@@ -94,7 +94,7 @@ export class BookForm implements OnInit {
 
     operation.subscribe({
       next: () => {
-        this.router.navigate(['/books']);
+        this.router.navigate(['/']);
       },
       error: () => {
         this.isSubmitting = false;
@@ -106,6 +106,6 @@ export class BookForm implements OnInit {
   }
 
   protected cancel(): void {
-    this.router.navigate(['/books']);
+    this.router.navigate(['/']);
   }
 }

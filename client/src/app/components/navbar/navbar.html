@@ -1,8 +1,7 @@
-@if (isLoggedIn) {
 <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top shadow-sm">
   <div class="container">
     <a class="navbar-brand"
-       routerLink="/books"
+       routerLink="/"
        (click)="closeMenu()">
       <i class="fa-solid fa-book-bookmark me-2"></i>
       BookMarked
@@ -20,11 +19,13 @@
     <div id="mainNavigation"
          class="collapse navbar-collapse"
          [class.show]="menuOpen">
+      @if (isLoggedIn) {
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
         <li class="nav-item">
           <a class="nav-link"
-             routerLink="/books"
+             routerLink="/"
              routerLinkActive="active"
+             [routerLinkActiveOptions]="{ exact: true }"
              (click)="closeMenu()">
             <i class="fa-solid fa-book me-1"></i>
             Books
@@ -41,6 +42,29 @@
           </a>
         </li>
       </ul>
+      } @else {
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item">
+          <a class="nav-link"
+             routerLink="/login"
+             routerLinkActive="active"
+             (click)="closeMenu()">
+            <i class="fa-solid fa-right-to-bracket me-1"></i>
+            Login
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link"
+             routerLink="/register"
+             routerLinkActive="active"
+             (click)="closeMenu()">
+            <i class="fa-solid fa-user-plus me-1"></i>
+            Register
+          </a>
+        </li>
+      </ul>
+      }
       <button type="button"
               class="btn btn-outline-light me-2"
               (click)="toggleTheme()"
@@ -51,13 +75,15 @@
            [class.fa-moon]="!isDarkMode">
         </i>
       </button>
+      @if (isLoggedIn) {
       <button type="button"
               class="btn btn-outline-light"
               (click)="logout()">
         <i class="fa-solid fa-right-from-bracket me-1"></i>
         Log out
       </button>
+      }
     </div>
   </div>
 </nav>
-}
+
