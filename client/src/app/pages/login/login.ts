@@ -54,6 +54,9 @@ export class Login {
         } else if (error.status === 0) {
           this.errorMessage =
             'Could not reach the API.';
+        } else if (error.status === 429) {
+          this.errorMessage =
+            'Too many attempts. Please wait one minute and try again.';
         } else {
           this.errorMessage =
             'Something went wrong. Please try again.';
