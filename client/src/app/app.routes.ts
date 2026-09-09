@@ -18,8 +18,8 @@ export const routes: Routes = [
   },
   {
     path: 'books',
-    component: Books,
-    canActivate: [authGuard]
+    redirectTo: '',
+    pathMatch: 'full'
   },
   {
     path: 'books/new',
@@ -48,7 +48,8 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'login',
+    component: Books,
+    canActivate: [authGuard],
     pathMatch: 'full'
   }
 ];

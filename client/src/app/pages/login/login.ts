@@ -43,7 +43,7 @@ export class Login {
     this.auth.login(request).subscribe({
       next: () => {
         this.isSubmitting = false;
-        this.router.navigate(['/books']);
+        this.router.navigate(['/']);
       },
       error: error => {
         this.isSubmitting = false;
