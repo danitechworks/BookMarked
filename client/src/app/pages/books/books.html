@@ -14,10 +14,16 @@
       </p>
     </div>
 
-    <a routerLink="/books/new" class="btn btn-primary flex-shrink-0">
-      <i class="fa-solid fa-plus me-2"></i>
-      Add new book
-    </a>
+    <div class="d-flex flex-wrap gap-2 flex-shrink-0">
+      <a routerLink="/books/new" class="btn btn-primary">
+        <i class="fa-solid fa-plus me-2"></i>
+        Add new book
+      </a>
+      <a routerLink="/quotes/new" class="btn btn-outline-primary">
+        <i class="fa-solid fa-quote-left me-2"></i>
+        Add a quote
+      </a>
+    </div>
   </div>
 
   @if (isLoading) {
