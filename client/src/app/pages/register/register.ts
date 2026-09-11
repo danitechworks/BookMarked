@@ -4,7 +4,10 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import {
+  Router,
+  RouterLink
+} from '@angular/router';
 import { Auth } from '../../services/auth';
 
 @Component({
@@ -16,6 +19,7 @@ import { Auth } from '../../services/auth';
 export class Register {
   private readonly formBuilder = inject(FormBuilder);
   private readonly auth = inject(Auth);
+  private readonly router = inject(Router);
 
   protected readonly registerForm =
     this.formBuilder.nonNullable.group({
@@ -66,10 +70,17 @@ export class Register {
       username: values.username,
       password: values.password
     }).subscribe({
-      next: response => {
+      next: () => {
         this.isSubmitting = false;
-        this.successMessage = response.message;
-        this.registerForm.reset();
+
+        this.router.navigate(
+          ['/login'],
+          {
+            queryParams: {
+              registered: true
+            }
+          }
+        );
       },
       error: error => {
         this.isSubmitting = false;

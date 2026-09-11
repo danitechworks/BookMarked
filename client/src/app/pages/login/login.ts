@@ -1,5 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink
+} from '@angular/router';
 import {
   FormBuilder,
   ReactiveFormsModule, 
@@ -17,6 +21,7 @@ export class Login {
   private readonly formBuilder = inject(FormBuilder);
   private readonly auth = inject(Auth);
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
 
   protected readonly loginForm =
     this.formBuilder.nonNullable.group({
@@ -25,7 +30,12 @@ export class Login {
     });
 
   protected errorMessage = '';
-  protected successMessage = '';
+  protected successMessage =
+    this.route.snapshot.queryParamMap.get('sessionExpired') === 'true'
+      ? 'Your session expired. Please log in again.'
+      : this.route.snapshot.queryParamMap.get('registered') === 'true'
+        ? 'Account created successfully. You can now log in.'
+        : '';
   protected isSubmitting = false;
 
   protected onSubmit(): void {
