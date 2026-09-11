@@ -46,11 +46,11 @@
   <div class="row g-4">
     @for (book of books; track book.id) {
     <div class="col-12 col-md-6 col-lg-4">
-      <div class="card h-100 shadow-sm">
+      <div class="card book-card h-100">
         <div class="card-body">
           <h2 class="h5">{{ book.title }}</h2>
 
-          <p class="mb-2">
+          <p class="book-card__author mb-2">
             {{ book.author }}
           </p>
 
@@ -61,12 +61,12 @@
 
         <div class="card-footer bg-transparent d-flex flex-wrap gap-2">
           <a [routerLink]="['/books/edit', book.id]"
-             class="btn btn-outline-primary">
+             class="btn book-action-edit">
             <i class="fa-solid fa-pen me-2"></i>
             Edit
           </a>
           <button type="button"
-                  class="btn btn-outline-danger"
+                  class="btn book-action-delete"
                   (click)="requestDeleteBook(book)"
                   [disabled]="deletingBookId === book.id">
             <i class="fa-solid fa-trash me-1"></i>

@@ -1,3 +1,34 @@
+:host {
+  display: block;
+  min-height: calc(100vh - 3.5rem);
+  background:
+    radial-gradient(
+      circle at 12% 12%,
+      rgba(128, 104, 201, 0.18),
+      transparent 28rem
+    ),
+    linear-gradient(
+      135deg,
+      #f7f3ff 0%,
+      #eef3ff 52%,
+      #faf8ff 100%
+    );
+}
+
+:host-context([data-bs-theme='dark']) {
+  background:
+    radial-gradient(
+      circle at 88% 18%,
+      rgba(219, 163, 72, 0.1),
+      transparent 26rem
+    ),
+    linear-gradient(
+      180deg,
+      rgba(39, 31, 59, 0.42),
+      rgba(17, 20, 31, 0.2)
+    );
+}
+
 .books-hero {
   position: relative;
   isolation: isolate;
@@ -11,6 +42,133 @@
   background:
     linear-gradient(120deg, #fffaf0 0%, #f3efff 100%);
   box-shadow: 0 1.25rem 3rem rgba(30, 35, 80, 0.12);
+}
+
+.book-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(85, 70, 165, 0.14);
+  border-radius: 1.5rem;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.98),
+      rgba(248, 245, 255, 0.96)
+    );
+  box-shadow: 0 0.7rem 1.8rem rgba(38, 35, 75, 0.09);
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.book-card::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 0.3rem;
+  content: '';
+  background: linear-gradient(90deg, #5546a5, #8068c9, #b9a7f4);
+}
+
+.book-card:hover {
+  transform: translateY(-0.35rem);
+  border-color: rgba(85, 70, 165, 0.34);
+  box-shadow: 0 1.1rem 2.4rem rgba(38, 35, 75, 0.16);
+}
+
+.book-card .card-body {
+  padding: 1.5rem;
+}
+
+.book-card .card-footer {
+  padding: 1rem 1.5rem 1.25rem;
+  border-top-color: rgba(85, 70, 165, 0.1);
+}
+
+.book-card h2 {
+  color: #342c68;
+  font-weight: 700;
+}
+
+.book-card__author {
+  color: #5b5968;
+  font-weight: 600;
+}
+
+.book-action-edit {
+  --bs-btn-color: #5546a5;
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color: #7565c1;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #5546a5;
+  --bs-btn-hover-border-color: #5546a5;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #44368e;
+  --bs-btn-active-border-color: #44368e;
+  --bs-btn-focus-shadow-rgb: 85, 70, 165;
+}
+
+.book-action-delete {
+  --bs-btn-color: #a33d4b;
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color: #c75a68;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #b74756;
+  --bs-btn-hover-border-color: #b74756;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #993745;
+  --bs-btn-active-border-color: #993745;
+  --bs-btn-focus-shadow-rgb: 183, 71, 86;
+}
+
+:host-context([data-bs-theme='dark']) .book-card {
+  border-color: rgba(179, 165, 255, 0.17);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(29, 33, 49, 0.98),
+      rgba(36, 29, 52, 0.96)
+    );
+  box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.28);
+}
+
+:host-context([data-bs-theme='dark']) .book-card:hover {
+  border-color: rgba(196, 181, 253, 0.38);
+  box-shadow: 0 1.15rem 2.6rem rgba(0, 0, 0, 0.42);
+}
+
+:host-context([data-bs-theme='dark']) .book-card .card-footer {
+  border-top-color: rgba(196, 181, 253, 0.12);
+}
+
+:host-context([data-bs-theme='dark']) .book-card h2 {
+  color: #e2dcff;
+}
+
+:host-context([data-bs-theme='dark']) .book-card__author {
+  color: #c9c7d4;
+}
+
+:host-context([data-bs-theme='dark']) .book-action-edit {
+  --bs-btn-color: #c4b5fd;
+  --bs-btn-border-color: #9585dc;
+  --bs-btn-hover-color: #17151f;
+  --bs-btn-hover-bg: #b5a7f3;
+  --bs-btn-hover-border-color: #b5a7f3;
+  --bs-btn-active-color: #17151f;
+  --bs-btn-active-bg: #9585dc;
+  --bs-btn-active-border-color: #9585dc;
+}
+
+:host-context([data-bs-theme='dark']) .book-action-delete {
+  --bs-btn-color: #ff9ba7;
+  --bs-btn-border-color: #d86a78;
+  --bs-btn-hover-color: #1c1115;
+  --bs-btn-hover-bg: #f18a97;
+  --bs-btn-hover-border-color: #f18a97;
+  --bs-btn-active-color: #1c1115;
+  --bs-btn-active-bg: #d86a78;
+  --bs-btn-active-border-color: #d86a78;
 }
 
 .books-hero::before {
