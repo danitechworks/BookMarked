@@ -1,29 +1,43 @@
-<div class="container py-5">
-  <div class="row justify-content-center">
-    <div class="col-12 col-md-8 col-lg-5">
-      <div class="card border-0 shadow">
-        <div class="card-body p-4">
-          <h1 class="h3 text-center mb-2">
+<main class="register-page">
+  <div class="container py-5">
+    <div class="register-panel">
+      <aside class="register-story" aria-label="Join BookMarked">
+        <div class="story-content">
+          <span class="story-label">Begin your collection</span>
+          <h1>A new account.<br>A world of words.</h1>
+          <p>
+            Join a shared reading space, discover memorable books,
+            and keep the words that inspire you close.
+          </p>
+        </div>
+        <img src="images/bookmarked-open-book.png"
+             alt=""
+             class="story-image"
+             aria-hidden="true">
+      </aside>
+
+      <section class="register-form-section">
+          <h1 class="form-title mb-2">
             <i class="fa-solid fa-user-plus me-2"></i>
             Create account
           </h1>
-          <p class="text-center fs-5 fw-semibold mb-2">
+          <p class="eyebrow mb-2">
             Your next chapter starts here.
           </p>
 
-          <p class="text-center text-body-secondary mb-4">
+          <p class="form-intro mb-4">
             Create an account to explore the shared library
             and build your personal quote collection.
           </p>
 
           @if (successMessage) {
-          <div class="alert alert-success">
+          <div class="alert alert-success" role="status">
             {{ successMessage }}
           </div>
           }
 
           @if (errorMessage) {
-          <div class="alert alert-danger">
+          <div class="alert alert-danger" role="alert">
             {{ errorMessage }}
           </div>
           }
@@ -98,7 +112,7 @@
             </div>
 
             <button type="submit"
-                    class="btn btn-primary w-100"
+                    class="btn register-button w-100"
                     [disabled]="isSubmitting">
               @if (isSubmitting) {
               Creating account...
@@ -108,7 +122,7 @@
               }
             </button>
             @if (isSubmitting) {
-            <div class="alert alert-info mt-3 mb-0" role="status">
+            <div class="alert wake-message mt-3 mb-0" role="status">
               <span class="spinner-border spinner-border-sm me-2"
                     aria-hidden="true"></span>
               Please wait. Free cloud services may take up to 60 seconds to wake up.
@@ -116,12 +130,11 @@
             }
           </form>
 
-          <p class="text-center mt-4 mb-0">
+          <p class="login-prompt text-center mt-4 mb-0">
             Already registered?
             <a routerLink="/login">Log in</a>
           </p>
-        </div>
-      </div>
+      </section>
     </div>
   </div>
-</div>
+</main>
