@@ -1,30 +1,35 @@
 <div class="container py-5">
-  <div class="d-flex flex-column flex-sm-row
-         justify-content-between align-items-sm-center
-         gap-3 mb-4">
-    <div>
-      <h1 class="mb-1">
-        <i class="fa-solid fa-book me-2"></i>
+  <section class="books-hero mb-5">
+    <div class="books-hero__content">
+      <p class="books-hero__eyebrow mb-2">
+        <i class="fa-solid fa-bookmark me-2"></i>
+        The BookMarked Library
+      </p>
+
+      <h1 class="display-5 fw-bold mb-3">
         Discover Your Next Great Read
       </h1>
 
-      <p class="text-body-secondary mb-0">
+      <p class="lead text-body-secondary mb-4">
         Explore and grow the shared library,
         then keep the words that inspire you in My Quotes.
       </p>
-    </div>
 
-    <div class="d-flex flex-wrap gap-2 flex-shrink-0">
-      <a routerLink="/books/new" class="btn btn-primary">
-        <i class="fa-solid fa-plus me-2"></i>
-        Add new book
-      </a>
-      <a routerLink="/quotes/new" class="btn btn-outline-primary">
-        <i class="fa-solid fa-quote-left me-2"></i>
-        Add a quote
-      </a>
+      <div class="d-flex flex-wrap gap-2">
+        <a routerLink="/books/new"
+           class="btn hero-btn-primary">
+          <i class="fa-solid fa-plus me-2"></i>
+          Add new book
+        </a>
+
+        <a routerLink="/quotes/new"
+           class="btn hero-btn-secondary">
+          <i class="fa-solid fa-quote-left me-2"></i>
+          Add a quote
+        </a>
+      </div>
     </div>
-  </div>
+  </section>
 
   @if (isLoading) {
   <div class="alert alert-info">
