@@ -1,99 +1,97 @@
-<div class="container py-5">
-  <div class="row justify-content-center">
-    <div class="col-12 col-md-8 col-lg-5">
-      <div class="card border-0 shadow">
-        <div class="card-body p-4">
-          <h1 class="h3 text-center mb-2">
-            <i class="fa-solid fa-book-open me-2"></i>
-            BookMarked
-          </h1>
-          <p class="text-center fs-5 fw-semibold mb-2">
-            Find your next story. Save the words that stay with you.
+<main class="login-page">
+  <div class="container py-5">
+    <div class="login-panel">
+      <section class="login-story" aria-label="Welcome to BookMarked">
+        <div class="story-content">
+          <span class="story-label">Your reading space</span>
+          <h1>Stories to discover.<br>Words worth keeping.</h1>
+          <p>
+            Explore a shared library and collect the quotes that remain
+            long after the final page.
           </p>
+        </div>
+        <img src="images/bookmarked-open-book.png"
+             alt=""
+             class="story-image"
+             aria-hidden="true">
+      </section>
 
-          <p class="text-center text-body-secondary mb-4">
-            Sign in to explore the shared library
-            and manage your personal quote collection.
-          </p>
-          @if (successMessage) {
-          <div class="alert alert-success">
-            {{ successMessage }}
+      <section class="login-form-section">
+        <div class="form-heading">
+          <span class="heading-icon" aria-hidden="true">
+            <i class="fa-solid fa-book-open"></i>
+          </span>
+          <div>
+            <p class="eyebrow mb-1">Welcome back</p>
+            <h2 class="mb-0">Sign in to BookMarked</h2>
           </div>
-          }
+        </div>
+        <p class="form-intro">
+          Continue exploring books and managing your personal quote collection.
+        </p>
 
-          @if (errorMessage) {
-          <div class="alert alert-danger">
-            {{ errorMessage }}
-          </div>
-          }
-          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-            <div class="mb-3">
-              <label for="username" class="form-label">
-                Username
-              </label>
+        @if (successMessage) {
+        <div class="alert alert-success" role="status">{{ successMessage }}</div>
+        }
+        @if (errorMessage) {
+        <div class="alert alert-danger" role="alert">{{ errorMessage }}</div>
+        }
 
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <div class="input-wrap">
+              <i class="fa-regular fa-user" aria-hidden="true"></i>
               <input id="username"
                      type="text"
                      class="form-control"
                      formControlName="username"
                      autocomplete="username">
-
-              @if (
-              loginForm.controls.username.touched &&
-              loginForm.controls.username.invalid
-              ) {
-              <div class="text-danger small mt-1">
-                Username is required.
-              </div>
-              }
             </div>
+            @if (loginForm.controls.username.touched && loginForm.controls.username.invalid) {
+            <div class="text-danger small mt-1">Username is required.</div>
+            }
+          </div>
 
-            <div class="mb-4">
-              <label for="password" class="form-label">
-                Password
-              </label>
-
+          <div class="mb-4">
+            <label for="password" class="form-label">Password</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-lock" aria-hidden="true"></i>
               <input id="password"
                      type="password"
                      class="form-control"
                      formControlName="password"
                      autocomplete="current-password">
-
-              @if (
-              loginForm.controls.password.touched &&
-              loginForm.controls.password.invalid
-              ) {
-              <div class="text-danger small mt-1">
-                Password is required.
-              </div>
-              }
             </div>
-
-            <button type="submit"
-                    class="btn btn-primary w-100"
-                    [disabled]="isSubmitting">
-              <i class="fa-solid fa-right-to-bracket me-2"></i>
-
-              @if (isSubmitting) {
-              Logging in...
-              } @else {
-              Log in
-              }
-            </button>
-            @if (isSubmitting) {
-            <div class="alert alert-info mt-3 mb-0" role="status">
-              <span class="spinner-border spinner-border-sm me-2"
-                    aria-hidden="true"></span>
-              Please wait. Free cloud services may take up to 60 seconds to wake up.
-            </div>
+            @if (loginForm.controls.password.touched && loginForm.controls.password.invalid) {
+            <div class="text-danger small mt-1">Password is required.</div>
             }
-          </form>
-          <p class="text-center mt-4 mb-0">
-            Don’t have an account?
-            <a routerLink="/register">Create account</a>
-          </p>
-        </div>
-      </div>
+          </div>
+
+          <button type="submit"
+                  class="btn login-button w-100"
+                  [disabled]="isSubmitting">
+            <i class="fa-solid fa-right-to-bracket me-2"></i>
+            @if (isSubmitting) {
+            Logging in...
+            } @else {
+            Log in
+            }
+          </button>
+
+          @if (isSubmitting) {
+          <div class="alert wake-message mt-3 mb-0" role="status">
+            <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+            Please wait. Free cloud services may take up to 60 seconds to wake up.
+          </div>
+          }
+        </form>
+
+        <p class="register-prompt text-center mb-0">
+          Don’t have an account?
+          <a routerLink="/register">Create account</a>
+        </p>
+      </section>
     </div>
   </div>
-</div>
+</main>
