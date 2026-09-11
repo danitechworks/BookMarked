@@ -1,0 +1,120 @@
+:host {
+  display: block;
+}
+
+.site-footer {
+  padding: 1.75rem 0;
+  border-top: 1px solid rgba(85, 70, 165, 0.16);
+  background:
+    linear-gradient(
+      120deg,
+      rgba(246, 242, 255, 0.98),
+      rgba(235, 239, 255, 0.98)
+    );
+  box-shadow: 0 -0.65rem 1.8rem rgba(38, 35, 75, 0.06);
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.footer-brand {
+  color: #342c68;
+  font-size: 1.35rem;
+}
+
+.footer-copy {
+  margin-top: 0.35rem;
+  color: #656273;
+  font-size: 0.875rem;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+
+.footer-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid rgba(85, 70, 165, 0.24);
+  border-radius: 999px;
+  color: #5546a5;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    color 0.18s ease,
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
+}
+
+.footer-links a:hover {
+  border-color: #5546a5;
+  background-color: #5546a5;
+  color: #fff;
+  box-shadow: 0 0.55rem 1.1rem rgba(85, 70, 165, 0.2);
+  transform: translateY(-2px);
+}
+
+.footer-links a:focus-visible {
+  outline: 0.2rem solid rgba(85, 70, 165, 0.28);
+  outline-offset: 0.15rem;
+}
+
+:host-context([data-bs-theme='dark']) .site-footer {
+  border-top-color: rgba(196, 181, 253, 0.16);
+  background:
+    linear-gradient(
+      120deg,
+      rgba(23, 26, 41, 0.98),
+      rgba(36, 29, 52, 0.98)
+    );
+  box-shadow: 0 -0.65rem 1.8rem rgba(0, 0, 0, 0.2);
+}
+
+:host-context([data-bs-theme='dark']) .footer-brand {
+  color: #e2dcff;
+}
+
+:host-context([data-bs-theme='dark']) .footer-copy {
+  color: #b8b5c5;
+}
+
+:host-context([data-bs-theme='dark']) .footer-links a {
+  border-color: rgba(196, 181, 253, 0.26);
+  color: #c4b5fd;
+}
+
+:host-context([data-bs-theme='dark']) .footer-links a:hover {
+  border-color: #b5a7f3;
+  background-color: #b5a7f3;
+  color: #17151f;
+  box-shadow: 0 0.55rem 1.1rem rgba(169, 156, 248, 0.16);
+}
+
+@media (max-width: 767.98px) {
+  .footer-content {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .footer-links {
+    justify-content: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-links a {
+    transition: none;
+  }
+}

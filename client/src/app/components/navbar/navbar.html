@@ -2,9 +2,14 @@
   <div class="container">
     <a class="navbar-brand"
        routerLink="/"
+       aria-label="BookMarked home"
        (click)="closeMenu()">
-      <i class="fa-solid fa-book-bookmark me-2"></i>
-      BookMarked
+      <span class="brand-wordmark" aria-hidden="true">
+        <span class="brand-wordmark__book">Book</span>
+        <span class="brand-wordmark__marked">
+          Marked
+        </span>
+      </span>
     </a>
 
     <button type="button"

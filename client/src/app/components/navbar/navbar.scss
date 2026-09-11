@@ -1,0 +1,10 @@
+.navbar-brand {
+  padding-block: 0.65rem;
+  font-size: 1.35rem;
+}
+
+.navbar-brand:focus-visible {
+  border-radius: 0.25rem;
+  outline: 0.18rem solid rgba(225, 184, 91, 0.75);
+  outline-offset: 0.28rem;
+}
