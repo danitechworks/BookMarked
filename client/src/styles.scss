@@ -1,1 +1,69 @@
-/* You can add global styles to this file, and also import other style files */
+/* Shared BookMarked wordmark */
+.brand-wordmark {
+  --wordmark-book: #f8f7ff;
+  --wordmark-marked: #c4b5fd;
+  --wordmark-accent: #e1b85b;
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  isolation: isolate;
+  color: var(--wordmark-book);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.brand-wordmark::after {
+  position: absolute;
+  right: 0.08em;
+  bottom: -0.28em;
+  left: 0.08em;
+  z-index: -1;
+  height: 0.11em;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #7762c7 0 58%, var(--wordmark-accent) 100%);
+  content: '';
+  opacity: 0.9;
+  transform: skewX(-18deg);
+}
+
+.brand-wordmark__book {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.68em;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.brand-wordmark__marked {
+  position: relative;
+  margin-left: 0.08em;
+  color: var(--wordmark-marked);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.15em;
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  text-shadow: 0 0.12em 0.45em rgba(57, 42, 112, 0.18);
+}
+
+[data-bs-theme='light'] .site-footer .brand-wordmark {
+  --wordmark-book: #342c68;
+  --wordmark-marked: #6954b8;
+  --wordmark-accent: #b98222;
+}
+
+[data-bs-theme='dark'] .site-footer .brand-wordmark {
+  --wordmark-book: #f4f1ff;
+  --wordmark-marked: #c4b5fd;
+  --wordmark-accent: #e1b85b;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:hover .brand-wordmark::after {
+    transform: skewX(-18deg) scaleX(1.04);
+  }
+
+  .brand-wordmark::after {
+    transition: transform 180ms ease;
+  }
+}
