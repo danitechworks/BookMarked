@@ -75,17 +75,31 @@
           </label>
 
           <input id="publicationDate"
-                 type="date"
+                 type="text"
                  class="form-control"
-                 formControlName="publicationDate">
+                 formControlName="publicationDate"
+                 inputmode="numeric"
+                 autocomplete="off"
+                 placeholder="YYYY-MM-DD"
+                 aria-describedby="publicationDateHelp">
+
+          <div id="publicationDateHelp" class="form-text">
+            Enter one complete date, for example 2020-04-01.
+          </div>
 
           @if (
           bookForm.controls.publicationDate.touched &&
           bookForm.controls.publicationDate.invalid
           ) {
-          <div class="text-danger small mt-1">
-            Publication date is required.
-          </div>
+            <div class="text-danger small mt-1">
+              @if (bookForm.controls.publicationDate.hasError('required')) {
+                Publication date is required.
+              } @else if (bookForm.controls.publicationDate.hasError('futureDate')) {
+                Publication date cannot be in the future.
+              } @else {
+                Enter a real date using YYYY-MM-DD.
+              }
+            </div>
           }
         </div>
 
