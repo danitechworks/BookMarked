@@ -81,3 +81,13 @@ Open `http://localhost:4200`. Swagger is available from the backend development 
 Passwords are hashed before storage, CRUD endpoints require JWT authorization, and users can access only their own quotes. API rate limiting rejects excessive traffic with HTTP `429`.
 
 GitHub Actions uses OIDC to build and deploy the combined application to Azure App Service. Production secrets remain in Azure configuration and are not committed to Git.
+
+## Demo and Testing
+
+Visitors can register their own account to explore the application. Demo credentials may also be shared privately; passwords and production secrets are intentionally excluded from this repository.
+
+Book and quote CRUD, authentication, responsive layouts, mobile navigation, and both color themes have been tested locally and against the deployed application. Thanks to external testers [Magnus Callenholm](https://callenholm.dev/) and [Lina Samuelsson](https://www.linkedin.com/in/lina-samuelsson-09216846/) for their feedback.
+
+## Author
+
+Created by [Dannell Bayer](https://dannellbayer.com). Find more work on [GitHub](https://github.com/danitechworks), [LinkedIn](https://www.linkedin.com/in/dannell-bayer), and [YouTube](https://www.youtube.com/@DanisITdesk).

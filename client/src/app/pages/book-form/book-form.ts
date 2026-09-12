@@ -1,12 +1,44 @@
 import { Component, inject, OnInit } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   ReactiveFormsModule,
+  ValidationErrors,
   Validators
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { BooksService } from '../../services/books';
+
+function validIsoDate(control: AbstractControl<string>): ValidationErrors | null {
+  const value = control.value;
+
+  if (!value || !/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+    return value ? { invalidDate: true } : null;
+  }
+
+  const [year, month, day] = value.split('-').map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day));
+
+  const isRealDate = date.getUTCFullYear() === year &&
+    date.getUTCMonth() === month - 1 &&
+    date.getUTCDate() === day;
+
+  if (!isRealDate) {
+    return { invalidDate: true };
+  }
+
+  const today = new Date();
+  const todayUtc = Date.UTC(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate()
+  );
+
+  return date.getTime() <= todayUtc
+    ? null
+    : { futureDate: true };
+}
 
 @Component({
   selector: 'app-book-form',
@@ -31,7 +63,7 @@ export class BookForm implements OnInit {
     this.formBuilder.nonNullable.group({
       title: ['', Validators.required],
       author: ['', Validators.required],
-      publicationDate: ['', Validators.required]
+      publicationDate: ['', [Validators.required, validIsoDate]]
     });
 
   ngOnInit(): void {
