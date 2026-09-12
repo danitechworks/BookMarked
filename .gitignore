@@ -10,6 +10,13 @@
 *.userosscache
 *.sln.docstates
 
+# Local secrets and environment-specific overrides
+.env
+.env.*
+!.env.example
+appsettings.Local.json
+appsettings.*.Local.json
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
