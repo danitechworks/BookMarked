@@ -70,6 +70,29 @@
   background: linear-gradient(90deg, #5546a5, #8068c9, #b9a7f4);
 }
 
+.book-card::after {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.65rem;
+  width: 6.75rem;
+  height: 6.75rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  content: '';
+  opacity: 0.86;
+  transform: scaleX(-1);
+  pointer-events: none;
+}
+
+.row > div:nth-child(odd) .book-card::after {
+  background-image: url('/images/book-card-stack.png');
+}
+
+.row > div:nth-child(even) .book-card::after {
+  background-image: url('/images/book-card-lamp.png');
+}
+
 .book-card:hover {
   transform: translateY(-0.35rem);
   border-color: rgba(85, 70, 165, 0.34);
@@ -77,7 +100,10 @@
 }
 
 .book-card .card-body {
+  position: relative;
+  z-index: 1;
   padding: 1.5rem;
+  padding-right: 6.4rem;
 }
 
 .book-card .card-footer {
@@ -135,6 +161,10 @@
 :host-context([data-bs-theme='dark']) .book-card:hover {
   border-color: rgba(196, 181, 253, 0.38);
   box-shadow: 0 1.15rem 2.6rem rgba(0, 0, 0, 0.42);
+}
+
+:host-context([data-bs-theme='dark']) .book-card::after {
+  opacity: 0.76;
 }
 
 :host-context([data-bs-theme='dark']) .book-card .card-footer {
@@ -358,5 +388,16 @@
 
   :host-context([data-bs-theme='dark']) .books-hero::after {
     opacity: 0.4;
+  }
+}
+
+@media (max-width: 420px) {
+  .book-card .card-body {
+    padding-right: 5.5rem;
+  }
+
+  .book-card::after {
+    width: 5.75rem;
+    height: 5.75rem;
   }
 }

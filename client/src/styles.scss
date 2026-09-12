@@ -67,3 +67,47 @@
     transition: transform 180ms ease;
   }
 }
+
+/* Shared loading state for cloud-backed content */
+.content-loading-state {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  border: 1px solid rgba(85, 70, 165, 0.2);
+  border-radius: 0.9rem;
+  background: linear-gradient(135deg, rgba(248, 245, 255, 0.96), rgba(239, 235, 252, 0.94));
+  color: #40376f;
+  box-shadow: 0 0.45rem 1.1rem rgba(46, 37, 82, 0.07);
+}
+
+.content-loading-state .spinner-border {
+  flex: 0 0 auto;
+  color: #7059bb;
+}
+
+.content-loading-state strong,
+.content-loading-state span:not(.spinner-border) {
+  display: block;
+}
+
+.content-loading-state span:not(.spinner-border) {
+  margin-top: 0.15rem;
+  color: #6c667b;
+  font-size: 0.875rem;
+}
+
+[data-bs-theme='dark'] .content-loading-state {
+  border-color: rgba(196, 181, 253, 0.2);
+  background: linear-gradient(135deg, rgba(34, 31, 49, 0.96), rgba(42, 34, 59, 0.94));
+  color: #eeeaff;
+  box-shadow: 0 0.45rem 1.1rem rgba(0, 0, 0, 0.18);
+}
+
+[data-bs-theme='dark'] .content-loading-state .spinner-border {
+  color: #c4b5fd;
+}
+
+[data-bs-theme='dark'] .content-loading-state span:not(.spinner-border) {
+  color: #c3bfce;
+}

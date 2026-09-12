@@ -30,12 +30,14 @@ export class Login {
     });
 
   protected errorMessage = '';
-  protected successMessage =
+  protected warningMessage =
     this.route.snapshot.queryParamMap.get('sessionExpired') === 'true'
       ? 'Your session expired. Please log in again.'
-      : this.route.snapshot.queryParamMap.get('registered') === 'true'
-        ? 'Account created successfully. You can now log in.'
-        : '';
+      : '';
+  protected successMessage =
+    this.route.snapshot.queryParamMap.get('registered') === 'true'
+      ? 'Account created successfully. You can now log in.'
+      : '';
   protected isSubmitting = false;
 
   protected onSubmit(): void {
@@ -45,6 +47,7 @@ export class Login {
     }
 
     this.errorMessage = '';
+    this.warningMessage = '';
     this.successMessage = '';
     this.isSubmitting = true;
 

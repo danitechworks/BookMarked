@@ -1,4 +1,4 @@
-+:host {
+:host {
   display: block;
   min-height: calc(100vh - 3.5rem);
   background:
@@ -25,6 +25,29 @@
       rgba(248, 245, 255, 0.96)
     );
   box-shadow: 0 1.1rem 2.6rem rgba(38, 35, 75, 0.13) !important;
+}
+
+.quote-form-heading {
+  display: flex;
+  min-height: 5.5rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.quote-form-eyebrow {
+  color: #7059bb;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.quote-form-art {
+  width: clamp(7rem, 24vw, 10rem);
+  max-height: 7rem;
+  object-fit: contain;
+  filter: drop-shadow(0 0.55rem 0.75rem rgba(55, 42, 100, 0.16));
 }
 
 h1 {
@@ -115,6 +138,20 @@ h1 {
 
 :host-context([data-bs-theme='dark']) h1 {
   color: #e2dcff;
+}
+
+:host-context([data-bs-theme='dark']) .quote-form-eyebrow {
+  color: #c4b5fd;
+}
+
+:host-context([data-bs-theme='dark']) .quote-form-art {
+  filter: drop-shadow(0 0.55rem 0.85rem rgba(0, 0, 0, 0.32));
+}
+
+@media (max-width: 420px) {
+  .quote-form-art {
+    width: 6rem;
+  }
 }
 
 :host-context([data-bs-theme='dark']) .form-label {

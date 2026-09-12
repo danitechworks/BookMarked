@@ -33,6 +33,9 @@
         @if (successMessage) {
         <div class="alert alert-success" role="status">{{ successMessage }}</div>
         }
+        @if (warningMessage) {
+        <div class="alert alert-warning" role="alert">{{ warningMessage }}</div>
+        }
         @if (errorMessage) {
         <div class="alert alert-danger" role="alert">{{ errorMessage }}</div>
         }
