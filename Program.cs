@@ -64,6 +64,12 @@ builder.Services.AddScoped<TokenService>();
 var jwtKey = builder.Configuration["Jwt:Key"]
     ?? throw new InvalidOperationException("JWT key is missing.");
 
+if (Encoding.UTF8.GetByteCount(jwtKey) < 32)
+{
+    throw new InvalidOperationException(
+        "JWT key must be at least 32 bytes long.");
+}
+
 var jwtIssuer = builder.Configuration["Jwt:Issuer"]
     ?? throw new InvalidOperationException("JWT issuer is missing.");
 
@@ -152,9 +158,17 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHsts();
+}
+
 app.UseHttpsRedirection();
 
-app.UseCors("AngularClient");
+if (app.Environment.IsDevelopment())
+{
+    app.UseCors("AngularClient");
+}
 
 app.UseRateLimiter();
 
