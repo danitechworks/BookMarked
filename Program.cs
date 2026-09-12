@@ -64,6 +64,12 @@ builder.Services.AddScoped<TokenService>();
 var jwtKey = builder.Configuration["Jwt:Key"]
     ?? throw new InvalidOperationException("JWT key is missing.");
 
+if (Encoding.UTF8.GetByteCount(jwtKey) < 32)
+{
+    throw new InvalidOperationException(
+        "JWT key must be at least 32 bytes long.");
+}
+
 var jwtIssuer = builder.Configuration["Jwt:Issuer"]
     ?? throw new InvalidOperationException("JWT issuer is missing.");
 
@@ -152,9 +158,38 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHsts();
+}
+
 app.UseHttpsRedirection();
 
-app.UseCors("AngularClient");
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Append(
+        "X-Content-Type-Options",
+        "nosniff");
+
+    context.Response.Headers.Append(
+        "X-Frame-Options",
+        "DENY");
+
+    context.Response.Headers.Append(
+        "Referrer-Policy",
+        "strict-origin-when-cross-origin");
+
+    context.Response.Headers.Append(
+        "Permissions-Policy",
+        "camera=(), microphone=(), geolocation=()");
+
+    await next();
+});
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseCors("AngularClient");
+}
 
 app.UseRateLimiter();
 
