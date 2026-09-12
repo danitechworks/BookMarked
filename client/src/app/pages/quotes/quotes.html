@@ -22,18 +22,29 @@
   </section>
 
   @if (isLoading) {
-  <div class="text-center py-5">
-    <div class="spinner-border" role="status">
-      <span class="visually-hidden">Loading...</span>
+  <div class="content-loading-state" role="status" aria-live="polite">
+    <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+    <div>
+      <strong>Loading your quotes...</strong>
+      <span>Free cloud services may take up to 60 seconds to wake up.</span>
     </div>
   </div>
   } @else if (errorMessage) {
-  <div class="alert alert-danger">
+  <div class="alert alert-danger" role="alert">
     {{ errorMessage }}
   </div>
   } @else if (quotes.length === 0) {
-  <div class="alert alert-info">
-    You have not added any quotes yet.
+  <div class="quotes-empty-state text-center" role="status">
+    <img src="images/quotes-empty-collection.png"
+         class="quotes-empty-state__art"
+         alt=""
+         aria-hidden="true">
+    <h2 class="h4">Your collection is waiting</h2>
+    <p>You have not added any quotes yet.</p>
+    <a routerLink="/quotes/new" class="btn quote-btn-primary">
+      <i class="fa-solid fa-plus me-2"></i>
+      Add your first quote
+    </a>
   </div>
   } @else {
   <div class="row g-3">

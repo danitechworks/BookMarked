@@ -6,7 +6,7 @@ A responsive full-stack application for managing a shared book collection and pr
 
 [Open BookMarked](https://bookmarked-api-dani-bqcqene2e6bnhkcv.swedencentral-01.azurewebsites.net)
 
-> Free Azure services may take up to 30 seconds to wake on the first request.
+> Free Azure services may take up to 60 seconds to wake on the first request.
 
 ## Highlights
 

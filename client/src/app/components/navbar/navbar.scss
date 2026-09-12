@@ -1,3 +1,10 @@
+:host {
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+  display: block;
+}
+
 .site-navbar {
   border-bottom: 1px solid rgba(196, 181, 253, 0.18);
   background:
@@ -109,6 +116,64 @@
 .navbar-toggler {
   border-color: rgba(196, 181, 253, 0.32);
   border-radius: 0.65rem;
+}
+
+:host-context([data-bs-theme='light']) .site-navbar {
+  border-bottom-color: rgba(91, 70, 158, 0.2);
+  background:
+    radial-gradient(circle at 18% -120%, rgba(139, 112, 214, 0.24), transparent 48%),
+    linear-gradient(105deg, #fbf9ff 0%, #f1ecfb 55%, #f8f1e8 100%);
+  box-shadow: 0 0.45rem 1.25rem rgba(54, 43, 92, 0.12);
+}
+
+:host-context([data-bs-theme='light']) .site-navbar .brand-wordmark {
+  --wordmark-book: #342c68;
+  --wordmark-marked: #6954b8;
+  --wordmark-accent: #b98222;
+}
+
+:host-context([data-bs-theme='light']) .nav-link {
+  color: #554f68;
+}
+
+:host-context([data-bs-theme='light']) .nav-link:hover {
+  background-color: rgba(105, 84, 184, 0.1);
+  color: #3c306d;
+}
+
+:host-context([data-bs-theme='light']) .nav-link.active {
+  background: linear-gradient(135deg, rgba(126, 99, 203, 0.16), rgba(202, 183, 235, 0.16));
+  color: #3f3275;
+}
+
+:host-context([data-bs-theme='light']) .theme-button,
+:host-context([data-bs-theme='light']) .logout-button {
+  border-color: rgba(91, 70, 158, 0.3);
+  color: #4f427c;
+}
+
+:host-context([data-bs-theme='light']) .theme-button {
+  color: #6954b8;
+}
+
+:host-context([data-bs-theme='light']) .theme-button:hover,
+:host-context([data-bs-theme='light']) .logout-button:hover {
+  border-color: #6954b8;
+  background-color: #6954b8;
+  color: #fff;
+  box-shadow: 0 0.4rem 1rem rgba(77, 58, 137, 0.18);
+}
+
+:host-context([data-bs-theme='light']) .navbar-toggler {
+  border-color: rgba(91, 70, 158, 0.35);
+}
+
+:host-context([data-bs-theme='light']) .navbar-toggler-icon {
+  filter: invert(24%) sepia(18%) saturate(1830%) hue-rotate(214deg) brightness(87%);
+}
+
+:host-context([data-bs-theme='light']) .navbar-collapse {
+  border-top-color: rgba(91, 70, 158, 0.14);
 }
 
 @media (max-width: 767.98px) {

@@ -32,13 +32,17 @@
   </section>
 
   @if (isLoading) {
-  <div class="alert alert-info">
-    Loading books...
+  <div class="content-loading-state" role="status" aria-live="polite">
+    <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+    <div>
+      <strong>Loading books...</strong>
+      <span>Free cloud services may take up to 60 seconds to wake up.</span>
+    </div>
   </div>
   }
 
   @if (errorMessage) {
-  <div class="alert alert-danger">
+  <div class="alert alert-danger" role="alert">
     {{ errorMessage }}
   </div>
   }
